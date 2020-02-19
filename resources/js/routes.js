@@ -1,4 +1,6 @@
-// export const routes = [
-//     { path: '/foo', component: Foo },
+import AdminHome from './components/admin/AdminHome.vue'
+export const routes = [
+     { path: '/home',
+      component: AdminHome },
 //     { path: '/bar', component: Bar }
-//   ]
+   ]
