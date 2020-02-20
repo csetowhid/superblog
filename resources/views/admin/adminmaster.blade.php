@@ -7,7 +7,6 @@
   <title>AdminLTE 3 | Blank Page</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini">
@@ -37,19 +36,21 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <router-link to="/home" class="nav-link">
+              <p>
                 Dashboard
-            </a>
+              </p>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/category-list" class="nav-link">
                 Category
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/post" class="nav-link">
                 Posts
-            </a>
+            </router-link>
           </li>
          
          
@@ -63,10 +64,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <div>
-      
       <admin-main></admin-main>
-  </div>
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
