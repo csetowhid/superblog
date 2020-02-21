@@ -5,11 +5,11 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Category-List</h3>
+              <h3 class="card-title">Post List</h3>
               <div class="card-tools">
                 <button class="btn btn-primary text-right">
                     <router-link to="/add-category" style="color:#fff; text-decoration:none">
-                        Add Category
+                        Add Post
                     </router-link>
                 </button>
             </div>
@@ -21,21 +21,26 @@
                 <thead>
                 <tr>
                   <th>Sl</th>
-                  <th>Category Id</th>
-                  <th>Category Name</th>
-                  <th>Date</th>
+                  <th>User</th>
+                  <th>Category</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Photo</th>
                   <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(category,index) in getallcategory":key="category.id" >
-                  <td>{{index+1}}</td>
-                  <td>{{category.id}}</td>
-                  <td>{{ category.cat_name }}</td>
-                  <td>{{ category.created_at| timeformat }}</td>
+                <tr >
+                  <td>1</td>
+                  <td>User Name</td>
+                  <td>Category Name</td>
+                  <td>Post Title</td>
+                  <td>Post Description</td>
+                  <td>Photo</td>
                   <td>
-                      <router-link :to="`/edit-category/${category.id}`" class="btn btn-sm btn-info">Edit</router-link>
-                      <a href="" @click.prevent="deletecategory(category.id)" class="btn btn-sm btn-danger">Delete</a>
+                      <!-- <router-link :to="`/edit-category/${category.id}`" class="btn btn-sm btn-info">Edit</router-link> -->
+                      <a href="" class="btn btn-sm btn-info">Edit</a>
+                      <a href="" class="btn btn-sm btn-danger">Delete</a>
                   </td>
                 </tr>
                 </tbody>
@@ -57,29 +62,7 @@
 <script>
 export default{
     name:"List",
-    mounted(){
-      this.$store.dispatch("allcategory")
-    },
-    computed:{
-      getallcategory(){
-        return this.$store.getters.getcategory
-      }
-    },
-    methods:{
-      deletecategory(id){
-        axios.get('/category/'+id)
-        .then(()=>{
-          this.$store.dispatch("allcategory")
-              Toast.fire({
-              icon: 'success',
-              title: 'Category Deleted successfully' 
-            })
-        })
-        .catch(()=>{
-
-        })
-      }
-    }
+    
 }
 </script>
 <style scoped>

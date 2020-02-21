@@ -48,7 +48,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/post" class="nav-link">
+            <router-link to="/post-list" class="nav-link">
                 Posts
             </router-link>
           </li>

@@ -48,7 +48,7 @@ export default{
         .then((response)=>{
           this.$router.push('/category-list')
           Toast.fire({
-  icon: 'success',
+  icon: 'info',
   title: 'Category Updated successfully'
 })
         })
