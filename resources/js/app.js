@@ -9,10 +9,7 @@ const store = new Vuex.Store(
   storeData
 )
 
-import moment from 'moment'
-Vue.filter('timeformat',(arg)=>{
-  return moment().format('MMMM Do YYYY, h:mm:ss a'); // February 21st 2020, 3:41:55 pm
-});
+import {filter} from './filter'
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
