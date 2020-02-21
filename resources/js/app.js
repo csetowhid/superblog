@@ -1,6 +1,19 @@
 require('./bootstrap');
 window.Vue = require('vue');
 
+import Vuex from 'vuex'
+Vue.use(Vuex)
+import storeData from "./store/index"
+
+const store = new Vuex.Store(
+  storeData
+)
+
+import moment from 'moment'
+Vue.filter('timeformat',(arg)=>{
+  return moment().format('MMMM Do YYYY, h:mm:ss a'); // February 21st 2020, 3:41:55 pm
+});
+
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
@@ -32,9 +45,10 @@ const Toast = Swal.mixin({
 window.Toast=Toast
 const router = new VueRouter({
     routes, // short for `routes: routes`
-    mode:'history'
+    mode:'hash'
   })
 
 const app = new Vue({
-    el: '#app',router
+    el: '#app',router,
+    store
 });

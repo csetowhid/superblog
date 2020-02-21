@@ -17,4 +17,11 @@ class CategoryController extends Controller
         $category->save();
         return $request->all();
     }
+    function all_category()
+    {
+        $category=Category::all();
+        return response()->json([
+            'categories'=>$category
+        ],200);
+    }
 }
