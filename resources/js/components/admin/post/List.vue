@@ -20,6 +20,7 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
+                  
                   <th>Sl</th>
                   <th>User</th>
                   <th>Category</th>
@@ -30,13 +31,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr >
-                  <td>1</td>
+                <tr v-for="(post,index) in allpost">
+                  <td>{{index+1}}</td>
                   <td>User Name</td>
                   <td>Category Name</td>
-                  <td>Post Title</td>
-                  <td>Post Description</td>
-                  <td>Photo</td>
+                  <td>{{ post.title }}</td>
+                  <td>{{ post.description }}</td>
+                  <td>{{ post.photo }}</td>
                   <td>
                       <!-- <router-link :to="`/edit-category/${category.id}`" class="btn btn-sm btn-info">Edit</router-link> -->
                       <a href="" class="btn btn-sm btn-info">Edit</a>
@@ -62,6 +63,17 @@
 <script>
 export default{
     name:"List",
+    mounted(){
+      this.$store.dispatch("getAllPost")
+    },
+    computed:{
+     allpost(){
+       return this.$store.getters.getAllPost
+     }
+    },
+    methods:{
+
+    }
     
 }
 </script>

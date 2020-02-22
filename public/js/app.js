@@ -2234,8 +2234,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "List"
+  name: "List",
+  mounted: function mounted() {
+    this.$store.dispatch("getAllPost");
+  },
+  computed: {
+    allpost: function allpost() {
+      return this.$store.getters.getAllPost;
+    }
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -59833,7 +59843,40 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-bordered table-hover",
+                  attrs: { id: "example2" }
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.allpost, function(post, index) {
+                      return _c("tr", [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v("User Name")]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v("Category Name")]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(post.title))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(post.description))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(post.photo))]),
+                        _vm._v(" "),
+                        _vm._m(1, true)
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            ])
           ])
         ])
       ])
@@ -59845,63 +59888,36 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c(
-        "table",
-        {
-          staticClass: "table table-bordered table-hover",
-          attrs: { id: "example2" }
-        },
-        [
-          _c("thead", [
-            _c("tr", [
-              _c("th", [_vm._v("Sl")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("User")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Category")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Title")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Description")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Photo")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Actions")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("td", [_vm._v("1")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("User Name")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Category Name")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Post Title")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Post Description")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Photo")]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  { staticClass: "btn btn-sm btn-info", attrs: { href: "" } },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "btn btn-sm btn-danger", attrs: { href: "" } },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ])
-          ])
-        ]
-      )
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Sl")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("User")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Photo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-sm btn-info", attrs: { href: "" } }, [
+        _vm._v("Edit")
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn btn-sm btn-danger", attrs: { href: "" } }, [
+        _vm._v("Delete")
+      ])
     ])
   }
 ]
@@ -76803,11 +76819,15 @@ var routes = [{
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    category: []
+    category: [],
+    post: []
   },
   getters: {
     getcategory: function getcategory(state) {
       return state.category;
+    },
+    getAllPost: function getAllPost(state) {
+      return state.post;
     }
   },
   actions: {
@@ -76815,11 +76835,19 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/category').then(function (response) {
         context.commit('categories', response.data.categories);
       });
+    },
+    getAllPost: function getAllPost(context) {
+      axios.get('/post').then(function (response) {
+        context.commit('allpost', response.data.posts);
+      });
     }
   },
   mutations: {
     categories: function categories(state, data) {
       return state.category = data;
+    },
+    allpost: function allpost(state, data) {
+      return state.post = data;
     }
   }
 });

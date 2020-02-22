@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
-use App\Posts;
+use App\Post;
 
 class PostController extends Controller
 {
     public function all_post()
     {
-        $category = Category::with('posts')->get();
-        return $category;
+        $posts = Post::all();
+        return response()->json([
+            'posts'=>$posts
+        ],200);
     }
 }
