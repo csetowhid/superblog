@@ -8,7 +8,7 @@
               <h3 class="card-title">Post List</h3>
               <div class="card-tools">
                 <button class="btn btn-primary text-right">
-                    <router-link to="/add-category" style="color:#fff; text-decoration:none">
+                    <router-link to="/add-post" style="color:#fff; text-decoration:none">
                         Add Post
                     </router-link>
                 </button>
