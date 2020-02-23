@@ -40,7 +40,7 @@
                   <td><img :src="ourImage(post.photo)" width="80px"></td>
                   <td>
                       <!-- <router-link :to="`/edit-category/${category.id}`" class="btn btn-sm btn-info">Edit</router-link> -->
-                      <a href="" class="btn btn-sm btn-info">Edit</a>
+                      <router-link :to="`edit-post/${post.id}`" class="btn btn-sm btn-info">Edit</router-link>
                       <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePost(post.id)">Delete</a>
                   </td>
                 </tr>

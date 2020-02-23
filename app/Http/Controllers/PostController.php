@@ -45,8 +45,15 @@ class PostController extends Controller
 		if(file_exists($image))
 		{
 			@unlink($image);
-			
+
 		}
 		$post->delete();
+	}
+	function edit_post($id)
+	{
+		$post = Post::find($id);
+		return response()->json([
+            'post'=>$post
+        ],200);
 	}
 }
