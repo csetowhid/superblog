@@ -1,6 +1,13 @@
 require('./bootstrap');
 window.Vue = require('vue');
 
+import 'v-markdown-editor/dist/index.css';
+import Editor from 'v-markdown-editor'
+
+// global register
+Vue.use(Editor);
+
+
 import Vuex from 'vuex'
 Vue.use(Vuex)
 import storeData from "./store/index"

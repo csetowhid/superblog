@@ -7,7 +7,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" enctype="multipart/form-data">
+              <form role="form" enctype="multipart/form-data" @submit.prevent="addnewPost()">
                 <div class="card-body">
 
                   <div class="form-group">
@@ -18,8 +18,7 @@
                   </div>
                     <div class="form-group">
                     <label for="descriptionId">Description</label>
-                    <textarea class="form-control" id="descriptionId" placeholder="Post Name" 
-                    v-model="form.description" name="description":class="{ 'is-invalid': form.errors.has('description') }"></textarea>
+                    <markdown-editor v-model="form.description"></markdown-editor>
                     <has-error :form="form" field="description"></has-error>
                   </div>
 
@@ -79,6 +78,17 @@ export default{
            this.form.photo=event.target.result
           };
           reader.readAsDataURL(file);
+        },
+        addnewPost(){
+          this.form.post('/savepost')
+          .then((response)=>{
+          this.$router.push('/post-list')
+          Toast.fire({
+  icon: 'success',
+  title: 'Post added successfully'
+})
+
+          })
         }
     }
     
