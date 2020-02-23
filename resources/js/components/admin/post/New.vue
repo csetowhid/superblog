@@ -28,15 +28,14 @@
                     <select class="form-control" :class="{ 'is-invalid': form.errors.has('cat_id') }" v-model="form.cat_id">
                         <option disabled value="">Select One</option>
                         <option :value="category.id" v-for="category in getallcategory">{{category.cat_name}}</option>
-                        
                     </select>
                     <has-error :form="form" field="cat_id"></has-error>
                   </div>
 
-
                   <div class="form-group">
                     <label for="descriptionId">Select Photo</label><br>
-                    <input type="file" name="photo" :class="{ 'is-invalid': form.errors.has('photo') }">
+                    <input @change="changePhoto($event)" type="file" name="photo" :class="{ 'is-invalid': form.errors.has('photo') }">
+                    <img :src="form.photo" width="200px"></img>
                     <has-error :form="form" field="photo"></has-error>
                   </div>
 
@@ -73,7 +72,14 @@ export default{
       }
     },
     methods:{
-        
+        changePhoto(event){
+         let file = event.target.files[0];
+         let reader = new FileReader();
+          reader.onload = event=> {
+           this.form.photo=event.target.result
+          };
+          reader.readAsDataURL(file);
+        }
     }
     
 }

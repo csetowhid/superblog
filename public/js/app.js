@@ -2310,7 +2310,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "New",
   data: function data() {
@@ -2331,7 +2330,20 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getcategory;
     }
   },
-  methods: {}
+  methods: {
+    changePhoto: function changePhoto(event) {
+      var _this = this;
+
+      var file = event.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        _this.form.photo = event.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
 });
 
 /***/ }),
@@ -60192,8 +60204,15 @@ var render = function() {
                   _vm._v(" "),
                   _c("input", {
                     class: { "is-invalid": _vm.form.errors.has("photo") },
-                    attrs: { type: "file", name: "photo" }
+                    attrs: { type: "file", name: "photo" },
+                    on: {
+                      change: function($event) {
+                        return _vm.changePhoto($event)
+                      }
+                    }
                   }),
+                  _vm._v(" "),
+                  _c("img", { attrs: { src: _vm.form.photo, width: "200px" } }),
                   _vm._v(" "),
                   _c("has-error", { attrs: { form: _vm.form, field: "photo" } })
                 ],
