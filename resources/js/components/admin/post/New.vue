@@ -73,11 +73,21 @@ export default{
     methods:{
         changePhoto(event){
          let file = event.target.files[0];
-         let reader = new FileReader();
+         if(file.size>1048576) {
+          Toast.fire({
+                    icon: 'error',
+                    title: 'Image Size Must Be Less Than 1 Mb'
+                  })
+         }
+         else{
+          let reader = new FileReader();
           reader.onload = event=> {
            this.form.photo=event.target.result
+           console.log(event.target.result)
           };
           reader.readAsDataURL(file);
+         }
+         
         },
         addnewPost(){
           this.form.post('/savepost')
