@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Post;
-use APP\Auth;
+use Auth;
 use Image;
 class PostController extends Controller
 {
@@ -33,8 +33,20 @@ class PostController extends Controller
     	$post->title=$request->title;
     	$post->description=$request->description;
     	$post->cat_id=$request->cat_id;
-    	//$post->user_id = Auth::user()->id;
+    	$post->user_id = Auth::user()->id;
     	$post->photo=$name;
     	$post->save();
-    }
+	}
+	function delete_post($id)
+	{
+		$post = Post::find($id);
+		$image_path = public_path()."/uploadimage/";
+		$image = $image_path.$post->photo;
+		if(file_exists($image))
+		{
+			@unlink($image);
+			
+		}
+		$post->delete();
+	}
 }

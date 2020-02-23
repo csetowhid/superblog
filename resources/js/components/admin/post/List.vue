@@ -37,11 +37,11 @@
                   <td v-if="post.category">{{post.category.cat_name}}</td>
                   <td>{{ post.title|shortlength(20,"---") }}</td>
                   <td>{{ post.description|shortlength(30,"...") }}</td>
-                  <td>{{ post.photo }}</td>
+                  <td><img :src="ourImage(post.photo)" width="80px"></td>
                   <td>
                       <!-- <router-link :to="`/edit-category/${category.id}`" class="btn btn-sm btn-info">Edit</router-link> -->
                       <a href="" class="btn btn-sm btn-info">Edit</a>
-                      <a href="" class="btn btn-sm btn-danger">Delete</a>
+                      <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePost(post.id)">Delete</a>
                   </td>
                 </tr>
                 </tbody>
@@ -72,7 +72,25 @@ export default{
      }
     },
     methods:{
-
+      ourImage(img){
+        return "uploadimage/"+img;
+      },
+      deletePost(id){
+        axios.get('/delete/'+id)
+        
+        .then((response) => {
+          this.$store.dispatch("getAllPost")
+          Toast.fire({
+          icon: 'success',
+          title: 'Post Deleted successfully'
+        })
+        }).catch(() => {
+          Toast.fire({
+          icon: 'error',
+          title: 'Something Went Wrong'
+        })
+        });
+      }
     }
     
 }

@@ -2245,7 +2245,28 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getAllPost;
     }
   },
-  methods: {}
+  methods: {
+    ourImage: function ourImage(img) {
+      return "uploadimage/" + img;
+    },
+    deletePost: function deletePost(id) {
+      var _this = this;
+
+      axios.get('/delete/' + id).then(function (response) {
+        _this.$store.dispatch("getAllPost");
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Post Deleted successfully'
+        });
+      })["catch"](function () {
+        Toast.fire({
+          icon: 'error',
+          title: 'Something Went Wrong'
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -74368,9 +74389,40 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(post.photo))]),
+                        _c("td", [
+                          _c("img", {
+                            attrs: {
+                              src: _vm.ourImage(post.photo),
+                              width: "80px"
+                            }
+                          })
+                        ]),
                         _vm._v(" "),
-                        _vm._m(1, true)
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-sm btn-info",
+                              attrs: { href: "" }
+                            },
+                            [_vm._v("Edit")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-sm btn-danger",
+                              attrs: { href: "" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deletePost(post.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        ])
                       ])
                     }),
                     0
@@ -74404,20 +74456,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Photo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "btn btn-sm btn-info", attrs: { href: "" } }, [
-        _vm._v("Edit")
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "btn btn-sm btn-danger", attrs: { href: "" } }, [
-        _vm._v("Delete")
       ])
     ])
   }
