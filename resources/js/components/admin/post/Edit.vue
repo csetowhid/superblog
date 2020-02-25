@@ -98,14 +98,17 @@ export default{
          
         },
         updatePost(){
-          this.form.post('/savepost')
-          .then((response)=>{
+          this.form.post(`update/${this.$route.params.postid}`)
+          .then(()=>{
           this.$router.push('/post-list')
           Toast.fire({
   icon: 'success',
   title: 'Post Updated successfully'
 })
 
+          })
+          .catch(()=>{
+            
           })
         },
         updateImage(){

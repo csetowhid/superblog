@@ -2257,14 +2257,14 @@ __webpack_require__.r(__webpack_exports__);
     updatePost: function updatePost() {
       var _this3 = this;
 
-      this.form.post('/savepost').then(function (response) {
+      this.form.post("update/".concat(this.$route.params.postid)).then(function () {
         _this3.$router.push('/post-list');
 
         Toast.fire({
           icon: 'success',
           title: 'Post Updated successfully'
         });
-      });
+      })["catch"](function () {});
     },
     updateImage: function updateImage() {
       var img = this.form.photo;
