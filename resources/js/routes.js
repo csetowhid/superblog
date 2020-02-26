@@ -6,6 +6,11 @@ import EditCategory from './components/admin/category/edit.vue'
 import PostList from './components/admin/post/List.vue'
 import AddPost from './components/admin/post/New.vue'
 import EditPost from './components/admin/post/Edit.vue'
+//Frontend
+import PublicHome from './components/public/PublicHome.vue'
+import BlogPost from './components/public/blog/BlogPost.vue'
+
+
 export const routes = [
 { path: '/home', component: AdminHome },
 { path: '/category-list', component: CategoryList },
@@ -15,4 +20,8 @@ export const routes = [
 { path: '/post-list', component: PostList },
 { path: '/add-post', component: AddPost },
 { path: '/edit-post/:postid', component: EditPost },
+
+//Frontend Route
+{ path: '/', component: PublicHome },
+{ path: '/blog', component: BlogPost },
    ]
