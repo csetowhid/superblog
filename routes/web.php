@@ -37,3 +37,6 @@ Route::get('/delete/{id}', 'PostController@delete_post');
 Route::get('/post/{id}', 'PostController@edit_post');
 Route::post('/update/{id}', 'PostController@update');
 });
+
+
+Route::get('/blogpost', 'BlogController@get_all_blog_post');
