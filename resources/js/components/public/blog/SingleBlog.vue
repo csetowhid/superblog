@@ -49,10 +49,17 @@ export default {
         },
     },
     methods:{
-
+      singlePost(){
+        this.$store.dispatch('getPostById',this.$route.params.id);
+      }
     },
     mounted(){
-        this.$store.dispatch('getPostById',this.$route.params.id);
+        this.singlePost();
+    },
+    watch:{
+      $route(to,from){
+        this.singlePost();
+      }
     }
 }
 </script>

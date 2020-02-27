@@ -54,6 +54,13 @@ export default {
             .then((response)=>{
                 context.commit('allcategories',response.data.categories)
             })
+        },
+        getPostByCatId(context,data){
+            axios.get('/categorypost/'+data)
+            .then((response)=>{
+                console.log(response.data.posts)
+                context.commit('getPostByCatId',response.data.posts)
+            })
         }
 
     },
@@ -72,6 +79,9 @@ export default {
         },
         allcategories(state,data){
             return state.allcategories=data
+        },
+        getPostByCatId(state,data){
+             state.blogpost=data
         }
         
     }

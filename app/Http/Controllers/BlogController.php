@@ -29,4 +29,11 @@ class BlogController extends Controller
             'categories'=>$categories
         ],200);
     }
+    function get_all_post_by_category($id)
+    {
+        $posts = Post::with('user','category')->where('cat_id',$id)->get();
+        return response()->json([
+            'posts'=>$posts
+        ],200);
+    }
 }

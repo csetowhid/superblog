@@ -2635,7 +2635,20 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getblogPost;
     }
   },
-  methods: {}
+  methods: {
+    getAllCategoryPost: function getAllCategoryPost() {
+      if (this.$route.params.id != null) {
+        this.$store.dispatch('getPostByCatId', this.$route.params.id);
+      } else {
+        this.$store.dispatch('getblogPost');
+      }
+    }
+  },
+  watch: {
+    $route: function $route(to, from) {
+      this.getAllCategoryPost();
+    }
+  }
 });
 
 /***/ }),
@@ -2761,9 +2774,18 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.singlepost;
     }
   },
-  methods: {},
+  methods: {
+    singlePost: function singlePost() {
+      this.$store.dispatch('getPostById', this.$route.params.id);
+    }
+  },
   mounted: function mounted() {
-    this.$store.dispatch('getPostById', this.$route.params.id);
+    this.singlePost();
+  },
+  watch: {
+    $route: function $route(to, from) {
+      this.singlePost();
+    }
   }
 });
 
@@ -75421,7 +75443,7 @@ var render = function() {
                               "router-link",
                               {
                                 staticClass: "pull-right",
-                                attrs: { to: "blog/" + post.id }
+                                attrs: { to: "/blog/" + post.id }
                               },
                               [
                                 _vm._v("Continue reading "),
@@ -75459,7 +75481,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "span4" }, [
             _c("div", { staticClass: "inner-heading" }, [
-              _c("h2", [_vm._v("Blog left sidebar")])
+              _c("h2", [_vm._v("Blog left sidebar ")])
             ])
           ]),
           _vm._v(" "),
@@ -75478,7 +75500,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "active" }, [
-                _vm._v("Blog with left sidebar")
+                _vm._v("Blog with left sidebar ")
               ])
             ])
           ])
@@ -75552,13 +75574,19 @@ var render = function() {
             "ul",
             { staticClass: "cat" },
             _vm._l(_vm.allcategories, function(category) {
-              return _c("li", [
-                _c("i", { staticClass: "icon-angle-right" }),
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v(_vm._s(category.cat_name))
-                ]),
-                _c("span", [_vm._v(" (20)")])
-              ])
+              return _c(
+                "li",
+                [
+                  _c("i", { staticClass: "icon-angle-right" }),
+                  _c(
+                    "router-link",
+                    { attrs: { to: "/categories/" + category.id } },
+                    [_vm._v(_vm._s(category.cat_name))]
+                  ),
+                  _c("span", [_vm._v(" (20)")])
+                ],
+                1
+              )
             }),
             0
           )
@@ -75582,11 +75610,17 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("h6", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _vm._v(_vm._s(post.title))
-                      ])
-                    ]),
+                    _c(
+                      "h6",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: "/blog/" + post.id } },
+                          [_vm._v(_vm._s(post.title))]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _c("p", [
                       _vm._v(
@@ -92954,6 +92988,9 @@ var routes = [{
 }, {
   path: '/blog/:id',
   component: _components_public_blog_SingleBlog_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+}, {
+  path: '/categories/:id',
+  component: _components_public_blog_BlogPost_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
 }];
 
 /***/ }),
@@ -93017,6 +93054,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/categories').then(function (response) {
         context.commit('allcategories', response.data.categories);
       });
+    },
+    getPostByCatId: function getPostByCatId(context, data) {
+      axios.get('/categorypost/' + data).then(function (response) {
+        console.log(response.data.posts);
+        context.commit('getPostByCatId', response.data.posts);
+      });
     }
   },
   mutations: {
@@ -93034,6 +93077,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     allcategories: function allcategories(state, data) {
       return state.allcategories = data;
+    },
+    getPostByCatId: function getPostByCatId(state, data) {
+      state.blogpost = data;
     }
   }
 });

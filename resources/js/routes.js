@@ -26,4 +26,5 @@ export const routes = [
 { path: '/', component: PublicHome },
 { path: '/blog', component: BlogPost },
 { path: '/blog/:id', component: SinglePost },
+{ path: '/categories/:id', component: BlogPost },
    ]
