@@ -9,6 +9,7 @@ import EditPost from './components/admin/post/Edit.vue'
 //Frontend
 import PublicHome from './components/public/PublicHome.vue'
 import BlogPost from './components/public/blog/BlogPost.vue'
+import SinglePost from './components/public/blog/SingleBlog.vue'
 
 
 export const routes = [
@@ -24,4 +25,5 @@ export const routes = [
 //Frontend Route
 { path: '/', component: PublicHome },
 { path: '/blog', component: BlogPost },
+{ path: '/blog/:id', component: SinglePost },
    ]
