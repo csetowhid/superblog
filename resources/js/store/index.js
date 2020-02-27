@@ -3,7 +3,8 @@ export default {
         category:[],
         post:[],
         blogpost:[],
-        singlepost:[]
+        singlepost:[],
+        allcategories:[],
     },
     getters:{
         getcategory(state){
@@ -17,6 +18,9 @@ export default {
         },
         singlepost(state){
             return state.singlepost
+        },
+        allcategories(state){
+            return state.allcategories
         }
     },
     actions:{
@@ -44,6 +48,12 @@ export default {
             .then((response)=>{
                 context.commit('singlePost',response.data.post)
             })
+        },
+        allcategories(context){
+            axios.get('/categories')
+            .then((response)=>{
+                context.commit('allcategories',response.data.categories)
+            })
         }
 
     },
@@ -59,7 +69,11 @@ export default {
         },
         singlePost(state,data){
             return state.singlepost=data
+        },
+        allcategories(state,data){
+            return state.allcategories=data
         }
+        
     }
 
 }

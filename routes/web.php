@@ -41,3 +41,4 @@ Route::post('/update/{id}', 'PostController@update');
 
 Route::get('/blogpost', 'BlogController@get_all_blog_post');
 Route::get('/singlepost/{id}', 'BlogController@getpost_ny_id');
+Route::get('/categories/', 'BlogController@get_all_category');

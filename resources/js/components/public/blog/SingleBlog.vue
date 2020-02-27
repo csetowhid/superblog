@@ -46,7 +46,7 @@ export default {
     computed:{
         singlepost(){
             return this.$store.getters.singlepost
-        }
+        },
     },
     methods:{
 
