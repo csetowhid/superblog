@@ -61,6 +61,12 @@ export default {
                 console.log(response.data.posts)
                 context.commit('getPostByCatId',response.data.posts)
             })
+        },
+        SearchPost(context,data){
+            axios.get('/search?s='+data)
+            .then((response)=>{
+                context.commit('getSearchPost',response.data.posts)
+            })
         }
 
     },
@@ -82,6 +88,9 @@ export default {
         },
         getPostByCatId(state,data){
              state.blogpost=data
+        },
+        getSearchPost(state,data){
+            state.blogpost=data
         }
         
     }
