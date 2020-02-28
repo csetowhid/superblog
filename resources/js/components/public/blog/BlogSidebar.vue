@@ -22,7 +22,7 @@
                     <img :src="`uploadimage/${post.photo}`" class="pull-left" alt="" width="50" />
                     <h6><router-link :to="`/blog/${post.id}`">{{ post.title }}</router-link></h6>
                     <p>
-                     {{post.description | shortlength(100,"...")}}
+                     {{post.description | shortlength(200,"...")}}
                     </p>
                   </li>
                   
@@ -48,11 +48,11 @@ export default {
         return this.$store.getters.allcategories;
       },
        blogpost(){
-        return this.$store.getters.getblogPost
+        return this.$store.getters.latestpost
       }
     },
     mounted(){
-      this.$store.dispatch('getblogPost');
+      this.$store.dispatch('latestPost');
       this.$store.dispatch('allcategories');
     },
     methods:{

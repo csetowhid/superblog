@@ -5,6 +5,7 @@ export default {
         blogpost:[],
         singlepost:[],
         allcategories:[],
+        latestpost:[],
     },
     getters:{
         getcategory(state){
@@ -21,6 +22,9 @@ export default {
         },
         allcategories(state){
             return state.allcategories
+        },
+        latestpost(state){
+            return state.latestpost
         }
     },
     actions:{
@@ -67,6 +71,12 @@ export default {
             .then((response)=>{
                 context.commit('getSearchPost',response.data.posts)
             })
+        },
+        latestPost(context){
+            axios.get('/latestpost')
+            .then((response)=>{
+                context.commit('latestpost',response.data.posts)
+            })
         }
 
     },
@@ -91,6 +101,9 @@ export default {
         },
         getSearchPost(state,data){
             state.blogpost=data
+        },
+        latestpost(state,data){
+            state.latestpost=data
         }
         
     }

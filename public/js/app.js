@@ -2052,8 +2052,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "List",
+  data: function data() {
+    return {
+      categoryItem: [],
+      select: '',
+      all_select: false
+    };
+  },
   mounted: function mounted() {
     this.$store.dispatch("allcategory");
   },
@@ -2074,6 +2090,32 @@ __webpack_require__.r(__webpack_exports__);
           title: 'Category Deleted successfully'
         });
       })["catch"](function () {});
+    },
+    deleteSelected: function deleteSelected() {
+      var _this2 = this;
+
+      axios.get('/deletecategory/' + this.categoryItem).then(function () {
+        _this2.categoryItem = [];
+
+        _this2.$store.dispatch("allcategory");
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Category Deleted successfully'
+        });
+      });
+    },
+    selectAll: function selectAll() {
+      if (this.all_select == false) {
+        this.all_select = true;
+
+        for (var category in this.getallcategory) {
+          this.categoryItem.push(this.getallcategory[category].id);
+        }
+      } else {
+        this.all_select = false;
+        this.categoryItem = [];
+      }
     }
   }
 });
@@ -2713,11 +2755,11 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.allcategories;
     },
     blogpost: function blogpost() {
-      return this.$store.getters.getblogPost;
+      return this.$store.getters.latestpost;
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch('getblogPost');
+    this.$store.dispatch('latestPost');
     this.$store.dispatch('allcategories');
   },
   methods: {
@@ -74495,12 +74537,159 @@ var render = function() {
                   attrs: { id: "example2" }
                 },
                 [
-                  _vm._m(0),
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.select,
+                                expression: "select"
+                              }
+                            ],
+                            attrs: { name: "", id: "" },
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.select = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                                _vm.deleteSelected
+                              ]
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Select")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Delete All")
+                            ])
+                          ]
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.all_select,
+                              expression: "all_select"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.all_select)
+                              ? _vm._i(_vm.all_select, null) > -1
+                              : _vm.all_select
+                          },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.selectAll($event)
+                            },
+                            change: function($event) {
+                              var $$a = _vm.all_select,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    (_vm.all_select = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.all_select = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
+                                }
+                              } else {
+                                _vm.all_select = $$c
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.all_select == false
+                          ? _c("span", [_vm._v("Check All")])
+                          : _c("span", [_vm._v("Uncheck All")])
+                      ]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Sl")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Category Id")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Category Name")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Date")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Actions")])
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c(
                     "tbody",
                     _vm._l(_vm.getallcategory, function(category, index) {
                       return _c("tr", { key: category.id }, [
+                        _c("td", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.categoryItem,
+                                expression: "categoryItem"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              value: category.id,
+                              checked: Array.isArray(_vm.categoryItem)
+                                ? _vm._i(_vm.categoryItem, category.id) > -1
+                                : _vm.categoryItem
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.categoryItem,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = category.id,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      (_vm.categoryItem = $$a.concat([$$v]))
+                                  } else {
+                                    $$i > -1 &&
+                                      (_vm.categoryItem = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
+                                  }
+                                } else {
+                                  _vm.categoryItem = $$c
+                                }
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(index + 1))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(category.id))]),
@@ -74555,26 +74744,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Sl")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Category Id")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Category Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -75679,7 +75849,7 @@ var render = function() {
                       _vm._v(
                         "\r\n                     " +
                           _vm._s(
-                            _vm._f("shortlength")(post.description, 100, "...")
+                            _vm._f("shortlength")(post.description, 200, "...")
                           ) +
                           "\r\n                    "
                       )
@@ -93040,7 +93210,8 @@ __webpack_require__.r(__webpack_exports__);
     post: [],
     blogpost: [],
     singlepost: [],
-    allcategories: []
+    allcategories: [],
+    latestpost: []
   },
   getters: {
     getcategory: function getcategory(state) {
@@ -93057,6 +93228,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     allcategories: function allcategories(state) {
       return state.allcategories;
+    },
+    latestpost: function latestpost(state) {
+      return state.latestpost;
     }
   },
   actions: {
@@ -93095,6 +93269,11 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/search?s=' + data).then(function (response) {
         context.commit('getSearchPost', response.data.posts);
       });
+    },
+    latestPost: function latestPost(context) {
+      axios.get('/latestpost').then(function (response) {
+        context.commit('latestpost', response.data.posts);
+      });
     }
   },
   mutations: {
@@ -93118,6 +93297,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getSearchPost: function getSearchPost(state, data) {
       state.blogpost = data;
+    },
+    latestpost: function latestpost(state, data) {
+      state.latestpost = data;
     }
   }
 });

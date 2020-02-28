@@ -47,4 +47,11 @@ class BlogController extends Controller
             'posts'=>$posts
         ],200);
     }
+    function latest_post()
+    {
+        $posts = Post::with('user','category')->get();
+        return response()->json([
+            'posts'=>$posts
+        ],200);
+    }
 }
